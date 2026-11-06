@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: taskflow-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./taskflow.db
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 10080
+      - key: BACKEND_CORS_ORIGINS
+        value: '["http://localhost:5173","http://127.0.0.1:5173"]'
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
